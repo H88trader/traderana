@@ -6,23 +6,28 @@
 - Disable path length limit
 - Plenty tutorial online, e.g. https://youtu.be/uDbDIhR76H4
 
-# Install sublime for windows
+# Install sublime for windows (optional)
 
 - One of the tutorial on line is https://youtu.be/gsOnPiSmR_w
 
 # Install traderana
 
-- Go to https://github.com/H88trader/traderana
-- In Code, choose "Download Zip"
-- Unzip the file to your prefered directory, I place in D:\myLib\traderana
-- Install all requirement, "pip install -r requirements.txt" 
+- Install for users 
 
-# Set enviroment for traderana
+   - Run "python -m pip install git+https://github.com/H88trader/traderana.git" in CMD
 
-- Search in the search bar: environment variables
-- Choose Advanced
-- Choose Enviroment Variables
-- Add D:\myLib\traderana to PYTHONPATH for user.
+- Install for developers
+   
+   - Go to https://github.com/H88trader/traderana
+   - In Code, choose "Download Zip"
+   - Unzip the file to your prefered directory, I place in D:\myLib\traderana
+   - Install all requirement, "pip install -r requirements.txt" 
+   - Set enviroment for traderana
+
+       - Search in the search bar: environment variables
+       - Choose Advanced
+       - Choose Enviroment Variables
+       - Add D:\myLib\traderana to PYTHONPATH for user.
 
 # Import trades
 
