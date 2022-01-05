@@ -48,16 +48,16 @@ def analyze_trades_of_one_strategy_by_price(dirname):
 		os.makedirs(tradesDirname, exist_ok=True)
 
 		#Plot PNL by buy price
-		fig, axes = plt.subplots(nrows=2, ncols=1)
-		analyse.plot(ax=axes[0], kind='bar', x='priceRange', y='buyPnl', rot=45, subplots=True,sharex=True)
-		analyse.plot(ax=axes[1], kind='bar', x='priceRange', y='buyNum', rot=45, subplots=True,sharex=True)
+		fig, axes = plt.subplots(nrows=1, ncols=2)
+		analyse.plot(ax=axes[1], kind='barh', x='priceRange', y='buyPnl', rot=0, subplots=True,sharey=True)
+		analyse.plot(ax=axes[0], kind='barh', x='priceRange', y='buyNum', rot=0, subplots=True,sharey=True)
 		plt.savefig(tradesDirname+"/pnlBuyPrice.png", bbox_inches='tight')
 		plt.close(fig)
 
 		#Plot PNL by sell price
-		fig, axes = plt.subplots(nrows=2, ncols=1)
-		analyse.plot(ax=axes[0], kind='bar', x='priceRange', y='sellPnl', rot=45, subplots=True,sharex=True)
-		analyse.plot(ax=axes[1], kind='bar', x='priceRange', y='sellNum', rot=45, subplots=True,sharex=True)
+		fig, axes = plt.subplots(nrows=1, ncols=2)
+		analyse.plot(ax=axes[1], kind='barh', x='priceRange', y='sellPnl', rot=0, subplots=True,sharey=True)
+		analyse.plot(ax=axes[0], kind='barh', x='priceRange', y='sellNum', rot=0, subplots=True,sharey=True)
 		plt.savefig(tradesDirname+"/pnlSellPrice.png", bbox_inches='tight')
 		plt.close(fig)
 
@@ -101,9 +101,9 @@ def analyze_trades_of_one_strategy_by_time(dirname):
 		os.makedirs(tradesDirname, exist_ok=True)
 
 		#Plot PNL by trade time
-		fig, axes = plt.subplots(nrows=2, ncols=1)
-		analyse.plot(ax=axes[0], kind='bar', x='timeRange', y='pnl', rot=45, subplots=True,sharex=True)
-		analyse.plot(ax=axes[1], kind='bar', x='timeRange', y='num', rot=45, subplots=True,sharex=True)
+		fig, axes = plt.subplots(nrows=1, ncols=2)
+		analyse.plot(ax=axes[1], kind='barh', x='timeRange', y='pnl', rot=0, subplots=True,sharey=True)
+		analyse.plot(ax=axes[0], kind='barh', x='timeRange', y='num', rot=0, subplots=True,sharey=True)
 		plt.savefig(tradesDirname+"/pnlTime.png", bbox_inches='tight')
 		plt.close(fig)
 
@@ -138,9 +138,9 @@ def analyze_trades_of_one_strategy_by_weekday(dirname):
 		os.makedirs(tradesDirname, exist_ok=True)
 
 		#Plot PNL by weekday
-		fig, axes = plt.subplots(nrows=2, ncols=1)
-		analyse.plot(ax=axes[0], kind='bar', x='weekRange', y='pnl', rot=45, subplots=True,sharex=True)
-		analyse.plot(ax=axes[1], kind='bar', x='weekRange', y='num', rot=45, subplots=True,sharex=True)
+		fig, axes = plt.subplots(nrows=1, ncols=2)
+		analyse.plot(ax=axes[1], kind='barh', x='weekRange', y='pnl', rot=0, subplots=True,sharey=True)
+		analyse.plot(ax=axes[0], kind='barh', x='weekRange', y='num', rot=0, subplots=True,sharey=True)
 		plt.savefig(tradesDirname+"/pnlWeekday.png", bbox_inches='tight')
 		plt.close(fig)
 		
@@ -181,9 +181,9 @@ def analyze_trades_of_one_strategy_by_duration(dirname):
 		os.makedirs(tradesDirname, exist_ok=True)
 
 		#Plot PNL by duration
-		fig, axes = plt.subplots(nrows=2, ncols=1)
-		analyse.plot(ax=axes[0], kind='bar', x='durRange', y='pnl', rot=45, subplots=True,sharex=True)
-		analyse.plot(ax=axes[1], kind='bar', x='durRange', y='num', rot=45, subplots=True,sharex=True)
+		fig, axes = plt.subplots(nrows=1, ncols=2)
+		analyse.plot(ax=axes[1], kind='barh', x='durRange', y='pnl', rot=0, subplots=True,sharey=True)
+		analyse.plot(ax=axes[0], kind='barh', x='durRange', y='num', rot=0, subplots=True,sharey=True)
 		plt.savefig(tradesDirname+"/pnlDuration.png", bbox_inches='tight')
 		plt.close(fig)
 
@@ -277,27 +277,27 @@ def analyze_trades_of_all_strategies(analyse, dataDir):
 
 	#Get total profit
 	analyse = analyse.sort_values(by='totalProfit', ascending=False)	
-	analyse.plot.bar(x='strategy', y='totalProfit', rot=45)
+	analyse.plot.barh(x='strategy', y='totalProfit', rot=0)
 	plt.savefig(dirname+"/totalProfit.png", bbox_inches='tight')
 
 	#Get winRate
 	analyse = analyse.sort_values(by='winRate', ascending=False)	
-	analyse.plot.bar(x='strategy', y='winRate', rot=45)
+	analyse.plot.barh(x='strategy', y='winRate', rot=0)
 	plt.savefig(dirname+"/winRate.png", bbox_inches='tight')
 	
 	#Get avgPnlPer
 	analyse = analyse.sort_values(by='avgPnlPer', ascending=False)	
-	analyse.plot.bar(x='strategy', y='avgPnlPer', rot=45)
+	analyse.plot.barh(x='strategy', y='avgPnlPer', rot=0)
 	plt.savefig(dirname+"/avgPnlPer.png", bbox_inches='tight')
 
 	#Get pnlPerRatio
 	analyse = analyse.sort_values(by='pnlPerRatio', ascending=False)	
-	analyse.plot.bar(x='strategy', y='pnlPerRatio', rot=45)
+	analyse.plot.barh(x='strategy', y='pnlPerRatio', rot=0)
 	plt.savefig(dirname+"/pnlPerRatio.png", bbox_inches='tight')
 
 	#Get pnlRatio
 	analyse = analyse.sort_values(by='pnlRatio', ascending=False)	
-	analyse.plot.bar(x='strategy', y='pnlRatio', rot=45)
+	analyse.plot.barh(x='strategy', y='pnlRatio', rot=0)
 	plt.savefig(dirname+"/pnlRatio.png", bbox_inches='tight')
 
 
