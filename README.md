@@ -1,16 +1,21 @@
 # This is a python package for analyzing trades
 
-# Download and install python for windows
+## Download and install python for windows
 
 - Remember to add python to path
 - Disable path length limit
 - Plenty tutorial online, e.g. https://youtu.be/uDbDIhR76H4
 
-# Install sublime for windows (optional)
+## Install sublime for windows (optional)
 
-- One of the tutorial on line is https://youtu.be/gsOnPiSmR_w
+- One of the tutorial online https://youtu.be/gsOnPiSmR_w
 
-# Install traderana
+
+## Install git for windows (optional)
+
+- One of the tutorial online https://youtu.be/2j7fD92g-gE
+
+## Install traderana
 
 - Install for users 
 
@@ -29,7 +34,7 @@
        - Choose Enviroment Variables
        - Add D:\myLib\traderana to PYTHONPATH for user.
 
-# Import trades
+## Import trades
 
 - Create a template directory in imports
 
