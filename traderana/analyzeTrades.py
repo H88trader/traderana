@@ -42,6 +42,7 @@ def analyze_trades_of_one_strategy_by_price(dirname):
                  "sellNum"    : sNum, 
 	             }
 		analyse = pd.DataFrame(analyse)
+		analyse = analyse.iloc[::-1]
 
 		#Create directory
 		tradesDirname = dirname+"/analyseTrades"
@@ -95,6 +96,7 @@ def analyze_trades_of_one_strategy_by_time(dirname):
                  "num"       : tNum,
 	             }
 		analyse = pd.DataFrame(analyse) 
+		analyse = analyse.iloc[::-1]
 
 		#Create directory
 		tradesDirname = dirname+"/analyseTrades"		
@@ -132,6 +134,7 @@ def analyze_trades_of_one_strategy_by_weekday(dirname):
                  'num'       : wNum, 
 	             }
 		analyse = pd.DataFrame(analyse) 
+		analyse = analyse.iloc[::-1]
 
 		#Create directory
 		tradesDirname = dirname+"/analyseTrades"		
@@ -175,6 +178,7 @@ def analyze_trades_of_one_strategy_by_duration(dirname):
                  'num'       : dNum, 
 	             }
 		analyse = pd.DataFrame(analyse) 
+		analyse = analyse.iloc[::-1]
 
 		#Create directory
 		tradesDirname = dirname+"/analyseTrades"		
@@ -276,27 +280,27 @@ def analyze_trades_of_all_strategies(analyse, dataDir):
 	analyse.to_csv(dirname+"/analyseStrategies.csv", index=False)
 
 	#Get total profit
-	analyse = analyse.sort_values(by='totalProfit', ascending=False)	
+	analyse = analyse.sort_values(by='totalProfit', ascending=True)	
 	analyse.plot.barh(x='strategy', y='totalProfit', rot=0)
 	plt.savefig(dirname+"/totalProfit.png", bbox_inches='tight')
 
 	#Get winRate
-	analyse = analyse.sort_values(by='winRate', ascending=False)	
+	analyse = analyse.sort_values(by='winRate', ascending=True)	
 	analyse.plot.barh(x='strategy', y='winRate', rot=0)
 	plt.savefig(dirname+"/winRate.png", bbox_inches='tight')
 	
 	#Get avgPnlPer
-	analyse = analyse.sort_values(by='avgPnlPer', ascending=False)	
+	analyse = analyse.sort_values(by='avgPnlPer', ascending=True)	
 	analyse.plot.barh(x='strategy', y='avgPnlPer', rot=0)
 	plt.savefig(dirname+"/avgPnlPer.png", bbox_inches='tight')
 
 	#Get pnlPerRatio
-	analyse = analyse.sort_values(by='pnlPerRatio', ascending=False)	
+	analyse = analyse.sort_values(by='pnlPerRatio', ascending=True)	
 	analyse.plot.barh(x='strategy', y='pnlPerRatio', rot=0)
 	plt.savefig(dirname+"/pnlPerRatio.png", bbox_inches='tight')
 
 	#Get pnlRatio
-	analyse = analyse.sort_values(by='pnlRatio', ascending=False)	
+	analyse = analyse.sort_values(by='pnlRatio', ascending=True)	
 	analyse.plot.barh(x='strategy', y='pnlRatio', rot=0)
 	plt.savefig(dirname+"/pnlRatio.png", bbox_inches='tight')
 
