@@ -6,14 +6,13 @@
 - Disable path length limit
 - Plenty tutorial online, e.g. https://youtu.be/uDbDIhR76H4
 
+## Install git for windows
+
+- One of the tutorial online https://youtu.be/2j7fD92g-gE
+
 ## Install sublime for windows (optional)
 
 - One of the tutorial online https://youtu.be/gsOnPiSmR_w
-
-
-## Install git for windows (optional)
-
-- One of the tutorial online https://youtu.be/2j7fD92g-gE
 
 ## Install traderana
 
