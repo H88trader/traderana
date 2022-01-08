@@ -227,6 +227,8 @@ def analyze_trades_of_one_strategy_generally(dirname):
 				loseTrades		        = trades[trades['pnlPer']<0.0].shape[0]
 				winRate   		        = winTrades/totTrades
 
+				num                   = trades.shape[0]
+
 				analyse               =  {
 																	"strategy"             : [ dirname[11:]         ],
                                   "totalProfit"       	 : [ totalProfit       	  ],
@@ -252,6 +254,7 @@ def analyze_trades_of_one_strategy_generally(dirname):
                                   "winTrades" 		       : [ winTrades 		        ], 
                                   "loseTrades"		       : [ loseTrades		        ],
                                   "winRate"   		       : [ winRate   		        ],
+                                  "num"                  : [ num                  ],
 	                                }
 
 				analyse               = pd.DataFrame(analyse) 
@@ -279,30 +282,45 @@ def analyze_trades_of_all_strategies(analyse, dataDir):
 	#Write analyseStrategies
 	analyse.to_csv(dirname+"/analyseStrategies.csv", index=False)
 
-	#Get total profit
+	#Get totalProfit
 	analyse = analyse.sort_values(by='totalProfit', ascending=True)	
-	analyse.plot.barh(x='strategy', y='totalProfit', rot=0)
+	fig, axes = plt.subplots(nrows=1, ncols=2)
+	analyse.plot(ax=axes[1], kind='barh', x='strategy', y='totalProfit', rot=0, subplots=True,sharey=True,legend=None)
+	analyse.plot(ax=axes[0], kind='barh', x='strategy', y='num', rot=0, subplots=True,sharey=True,legend=None)
 	plt.savefig(dirname+"/totalProfit.png", bbox_inches='tight')
+	plt.close(fig)
 
 	#Get winRate
 	analyse = analyse.sort_values(by='winRate', ascending=True)	
-	analyse.plot.barh(x='strategy', y='winRate', rot=0)
+	fig, axes = plt.subplots(nrows=1, ncols=2)
+	analyse.plot(ax=axes[1], kind='barh', x='strategy', y='winRate', rot=0, subplots=True,sharey=True,legend=None)
+	analyse.plot(ax=axes[0], kind='barh', x='strategy', y='num', rot=0, subplots=True,sharey=True,legend=None)
 	plt.savefig(dirname+"/winRate.png", bbox_inches='tight')
-	
+	plt.close(fig)
+
 	#Get avgPnlPer
 	analyse = analyse.sort_values(by='avgPnlPer', ascending=True)	
-	analyse.plot.barh(x='strategy', y='avgPnlPer', rot=0)
+	fig, axes = plt.subplots(nrows=1, ncols=2)
+	analyse.plot(ax=axes[1], kind='barh', x='strategy', y='avgPnlPer', rot=0, subplots=True,sharey=True,legend=None)
+	analyse.plot(ax=axes[0], kind='barh', x='strategy', y='num', rot=0, subplots=True,sharey=True,legend=None)
 	plt.savefig(dirname+"/avgPnlPer.png", bbox_inches='tight')
+	plt.close(fig)
 
 	#Get pnlPerRatio
 	analyse = analyse.sort_values(by='pnlPerRatio', ascending=True)	
-	analyse.plot.barh(x='strategy', y='pnlPerRatio', rot=0)
+	fig, axes = plt.subplots(nrows=1, ncols=2)
+	analyse.plot(ax=axes[1], kind='barh', x='strategy', y='pnlPerRatio', rot=0, subplots=True,sharey=True,legend=None)
+	analyse.plot(ax=axes[0], kind='barh', x='strategy', y='num', rot=0, subplots=True,sharey=True,legend=None)
 	plt.savefig(dirname+"/pnlPerRatio.png", bbox_inches='tight')
+	plt.close(fig)
 
 	#Get pnlRatio
 	analyse = analyse.sort_values(by='pnlRatio', ascending=True)	
-	analyse.plot.barh(x='strategy', y='pnlRatio', rot=0)
+	fig, axes = plt.subplots(nrows=1, ncols=2)
+	analyse.plot(ax=axes[1], kind='barh', x='strategy', y='pnlRatio', rot=0, subplots=True,sharey=True,legend=None)
+	analyse.plot(ax=axes[0], kind='barh', x='strategy', y='num', rot=0, subplots=True,sharey=True,legend=None)
 	plt.savefig(dirname+"/pnlRatio.png", bbox_inches='tight')
+	plt.close(fig)
 
 
 def analyze_all_trades_and_strategies(dataDir):
