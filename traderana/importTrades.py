@@ -247,37 +247,17 @@ def create_empty_avg_trades():
 def write_avg_open_close_trades_to_excel(dirname, avgCloseTrades, avgOpenTrades):
 
 		filename =  dirname + "/avgTrades.xlsx"
-
-		if( not os.path.exists(filename) ):
-
-			act = pd.DataFrame()
-			aot = pd.DataFrame()
-		
-			writer = pd.ExcelWriter(filename, engine='openpyxl')
-		
-			act.to_excel(writer, sheet_name='closeTrades')
-			aot.to_excel(writer, sheet_name='openTrades')
-		
-			writer.save()
-
-		book   = openpyxl.load_workbook(filename)
-		writer = pd.ExcelWriter(filename, engine='openpyxl') 
-		writer.book = book
-		
-		## ExcelWriter for some reason uses writer.sheets to access the sheet.
-		## If you leave it empty it will not know that sheet Main is already there
-		## and will create a new sheet.
-		
-		writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
-		
+	
+		writer = pd.ExcelWriter(filename, engine='openpyxl')
+	
 		if avgCloseTrades.shape[0] == 0:
-				avgCloseTrades = create_empty_avg_trades()
+			avgCloseTrades = create_empty_avg_trades()
 		avgCloseTrades.to_excel(writer, "closeTrades", index=False)
 
 		if avgOpenTrades.shape[0] == 0:
-				avgOpenTrades  = create_empty_avg_trades()
+			avgOpenTrades  = create_empty_avg_trades()
 		avgOpenTrades.to_excel(writer, "openTrades", index=False)
-		
+	
 		writer.save()
 
 def get_avg_from_one_trade(oneTrade):
