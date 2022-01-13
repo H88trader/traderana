@@ -4,7 +4,7 @@ import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def analyze_trades_of_one_strategy_by_price(dirname):
+def analyze_trades_of_one_strategy_by_price(dirname, dateBegin, dateEnd):
 
 		#Get Price Range
 		priceRange = [ 0.0, 1.0, 2.0, 3.0, 5.0, 10.0, 15.0, 20.0, float('inf') ]
@@ -12,6 +12,8 @@ def analyze_trades_of_one_strategy_by_price(dirname):
 		#Read Trades
 		filename =  dirname + "/avgTrades.xlsx"
 		trades   = pd.read_excel(filename, sheet_name='closeTrades')		
+		trades['date'] = pd.to_datetime(trades['beginDate']).dt.date
+		trades  = trades[ (trades['date'] >= dateBegin) & (trades['date'] <= dateEnd) ].reset_index(drop=True) 
 		if( trades.shape[0] == 0 ): return 
 
 		#Split trades by price
@@ -62,7 +64,7 @@ def analyze_trades_of_one_strategy_by_price(dirname):
 		plt.savefig(tradesDirname+"/pnlSellPrice.png", bbox_inches='tight')
 		plt.close(fig)
 
-def analyze_trades_of_one_strategy_by_time(dirname):
+def analyze_trades_of_one_strategy_by_time(dirname, dateBegin, dateEnd):
 
 		#Get Time Range
 		timeRange = [ datetime.time(4,00,0), datetime.time(7,00,0), datetime.time(8,00,0), datetime.time(9,00,0),
@@ -73,6 +75,8 @@ def analyze_trades_of_one_strategy_by_time(dirname):
 		#Read Trades
 		filename       =  dirname + "/avgTrades.xlsx"
 		trades         = pd.read_excel(filename, sheet_name='closeTrades')
+		trades['date'] = pd.to_datetime(trades['beginDate']).dt.date
+		trades  = trades[ (trades['date'] >= dateBegin) & (trades['date'] <= dateEnd) ].reset_index(drop=True) 
 		if( trades.shape[0] == 0 ): return 		
 		trades['time'] = pd.to_datetime( trades['beginDate'] ).dt.time
 
@@ -109,7 +113,7 @@ def analyze_trades_of_one_strategy_by_time(dirname):
 		plt.savefig(tradesDirname+"/pnlTime.png", bbox_inches='tight')
 		plt.close(fig)
 
-def analyze_trades_of_one_strategy_by_weekday(dirname):
+def analyze_trades_of_one_strategy_by_weekday(dirname, dateBegin, dateEnd):
 
 		#Get Weekday Range
 		weekRange = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
@@ -117,6 +121,8 @@ def analyze_trades_of_one_strategy_by_weekday(dirname):
 		#Read Trades
 		filename          = dirname + "/avgTrades.xlsx"
 		trades            = pd.read_excel(filename, sheet_name='closeTrades')
+		trades['date'] = pd.to_datetime(trades['beginDate']).dt.date
+		trades  = trades[ (trades['date'] >= dateBegin) & (trades['date'] <= dateEnd) ].reset_index(drop=True) 
 		if( trades.shape[0] == 0 ): return 
 		trades['weekday'] = pd.to_datetime( trades['beginDate'] ).dt.weekday	
 
@@ -147,7 +153,7 @@ def analyze_trades_of_one_strategy_by_weekday(dirname):
 		plt.savefig(tradesDirname+"/pnlWeekday.png", bbox_inches='tight')
 		plt.close(fig)
 		
-def analyze_trades_of_one_strategy_by_duration(dirname):
+def analyze_trades_of_one_strategy_by_duration(dirname, dateBegin, dateEnd):
 
 		#Get trade duration Range
 		durRange = [ 0.0, 1.0, 2.0, 5.0, 10.0, 20.0, 40.0, 60.0, 120.0, 240.0, float('inf') ]
@@ -155,6 +161,8 @@ def analyze_trades_of_one_strategy_by_duration(dirname):
 		#Read Trades
 		filename          = dirname + "/avgTrades.xlsx"
 		trades            = pd.read_excel(filename, sheet_name='closeTrades')
+		trades['date'] = pd.to_datetime(trades['beginDate']).dt.date
+		trades  = trades[ (trades['date'] >= dateBegin) & (trades['date'] <= dateEnd) ].reset_index(drop=True) 
 		if( trades.shape[0] == 0 ): return 
 		trades['dur']     = (trades['endDate']-trades['beginDate']).dt.total_seconds()/60.
 
@@ -191,11 +199,13 @@ def analyze_trades_of_one_strategy_by_duration(dirname):
 		plt.savefig(tradesDirname+"/pnlDuration.png", bbox_inches='tight')
 		plt.close(fig)
 
-def analyze_trades_of_one_strategy_generally(dirname):
+def analyze_trades_of_one_strategy_generally(dirname, dateBegin, dateEnd):
 
 		filename =  dirname + "/avgTrades.xlsx"
 
 		trades = pd.read_excel(filename, sheet_name='closeTrades')
+		trades['date'] = pd.to_datetime(trades['beginDate']).dt.date
+		trades  = trades[ (trades['date'] >= dateBegin) & (trades['date'] <= dateEnd) ].reset_index(drop=True) 
 
 		if trades.shape[0] > 0:
 
@@ -323,7 +333,7 @@ def analyze_trades_of_all_strategies(analyse, dataDir):
 	plt.close(fig)
 
 
-def analyze_all_trades_and_strategies(dataDir):
+def analyze_all_trades_and_strategies(dataDir, dateBegin, dateEnd):
 
 	#Get all strategy lists
 	workDir     = "{}/strategy/*/".format( dataDir )
@@ -336,15 +346,15 @@ def analyze_all_trades_and_strategies(dataDir):
 
 		print( "Analyzing trades in directory {}".format(dirname[11:]) )
 
-		analyze_trades_of_one_strategy_by_price(dirname)
+		analyze_trades_of_one_strategy_by_price(dirname, dateBegin, dateEnd)
 
-		analyze_trades_of_one_strategy_by_time(dirname)
+		analyze_trades_of_one_strategy_by_time(dirname, dateBegin, dateEnd)
 
-		analyze_trades_of_one_strategy_by_weekday(dirname)
+		analyze_trades_of_one_strategy_by_weekday(dirname, dateBegin, dateEnd)
 
-		analyze_trades_of_one_strategy_by_duration(dirname)
+		analyze_trades_of_one_strategy_by_duration(dirname, dateBegin, dateEnd)
 
-		analyse = analyse.append( analyze_trades_of_one_strategy_generally(dirname) )
+		analyse = analyse.append( analyze_trades_of_one_strategy_generally(dirname, dateBegin, dateEnd) )
 
 	print( "Analyzing trades by comparing different strategies" )
 	analyze_trades_of_all_strategies(analyse, dataDir)

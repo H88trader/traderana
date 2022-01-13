@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='traderana',
-    version='0.0.1',
+    version='0.1.0',
     author='H88trader',
     author_email='boruotrading@gmail.com',
     description='A Package that tracking trades',
